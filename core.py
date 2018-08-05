@@ -3,7 +3,7 @@ import logging
 import random
 from random import choice
 
-updater = Updater(token='496199270:AAGuUNsO5Walo9482g0QIEpe6HfItm0sD9I')
+updater = Updater(token='ur token here')
 dispatcher = updater.dispatcher
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s -%(message)s',
@@ -32,16 +32,10 @@ def start(bot, update):
 
 def RandomPaste(bot, update):
     with open('resource/OldsNotepad.txt', encoding="utf-8") as f:
-        if len(f.read(1)) == 0:
-            bot.send_message(chat_id=update.message.chat_id, text='нах иди нема тексту))')
-        else:
-            paste = f.readlines()
-            bot.send_message(chat_id=update.message.chat_id, text=(random.choice(paste)))
-            f.close()
-
-
-def echo(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
+        paste = f.readlines()
+        textPaste = random.choice(paste)
+        # if len(paste) else 'нах иди нема тексту))'
+        bot.send_message(chat_id=update.message.chat_id, text=textPaste)
 
 
 def caps(bot, update, args):
@@ -60,10 +54,8 @@ def CoinFlip(bot, update):
 RandomPaste_handler = CommandHandler('PastaOlda', RandomPaste)
 CoinFlip_handler = CommandHandler('flip', CoinFlip)
 start_handler = CommandHandler('start', start)
-echo_handler = MessageHandler(Filters.text, echo)
 caps_handler = CommandHandler('caps', caps, pass_args=True)
 dispatcher.add_handler(start_handler)
-dispatcher.add_handler(echo_handler)
 dispatcher.add_handler(caps_handler)
 dispatcher.add_handler(CoinFlip_handler)
 dispatcher.add_handler(RandomPaste_handler)
